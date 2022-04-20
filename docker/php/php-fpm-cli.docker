@@ -1,14 +1,17 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y wget
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions gd mysqli opcache pdo pdo_mysql memcached
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
 ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
-ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
+ADD ./memcached.ini /usr/local/etc/php/conf.d/memcached.ini
 
 RUN usermod -u 1000 www-data
 

@@ -9,7 +9,7 @@ services:
       - ./www:/var/www/bitrix
       - ./storage/docker/logs/nginx/:/var/log/nginx/
     ports:
-      - "80"
+      - 80:80/tcp
     depends_on:
       - php-fpm
       - php-fpm-cli
@@ -18,6 +18,7 @@ services:
         ipv4_address: ${NGINX_INTERFACE}
 
   memcached:
+    restart: unless-stopped
     build:
       context: ./docker/memcached
       dockerfile: memcached.docker
@@ -31,6 +32,7 @@ services:
       - bitrix
 
   redis:
+    restart: unless-stopped
     build:
       context: ./docker/redis
       dockerfile: redis.docker
@@ -42,6 +44,7 @@ services:
       - bitrix
 
   php-fpm-cli:
+    restart: unless-stopped
     build:
       context: ./docker/php
       dockerfile: php-fpm-cli.docker
@@ -54,11 +57,12 @@ services:
       - bitrix
 
   php-fpm:
+    restart: unless-stopped
     build:
       context: ./docker/php
       dockerfile: php-fpm.docker
     volumes:
-      - ./www:/var/www/bitrix
+      - ./www:/var/www/bitrix:delegated
       - ./storage/docker/logs/php/:/var/log/php/
     depends_on:
       - mysql
@@ -66,6 +70,7 @@ services:
       - bitrix
 
   mysql:
+    restart: unless-stopped
     build:
       context: ./docker/mysql
       dockerfile: mysql.docker
@@ -75,16 +80,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "33061:3306"
-    networks:
-      - bitrix
-
-  mailhog:
-    image: mailhog/mailhog
-    restart: unless-stopped
-    ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "3306"
     networks:
       - bitrix
 

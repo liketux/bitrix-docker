@@ -1,12 +1,3 @@
-## В сборке
-- PHP 7.3 (opcache, xdebug)
-- nginx 1.14
-- mysql 5.7
-- smtp (иммитация, перехват писем небольшим скриптом на go)
-- mailhog для просмотра писем
-
-Соответствует всем тестам на БУС
-
 ## Установка зависимостей
 - Git
 ```
@@ -36,7 +27,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ## Начало работы
 - Склонируйте репозиторий bitrix-docker
 ```
-git clone https://github.com/sidigi/bitrix-docker.git
+git clone https://github.com/liketux/bitrix-docker.git
 ```
 
 - Выполните настройку окружения
