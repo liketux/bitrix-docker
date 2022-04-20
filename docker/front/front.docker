@@ -1,0 +1,5 @@
+FROM staticfloat/nginx-certbot
+
+RUN usermod -u 1000 www-data
+
+WORKDIR /var/www/bitrix

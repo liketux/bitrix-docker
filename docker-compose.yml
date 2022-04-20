@@ -1,6 +1,25 @@
 version: '3'
 
 services:
+  front:
+    restart: unless-stopped
+    build:
+      context: ./docker/front
+      dockerfile: front.docker
+    ports:
+      - 443:443/tcp
+    environment:
+      CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+      ENVSUBST_VARS: FQDN
+      FQDN: ${DOMAIN}
+    volumes:
+      - ./docker/front/user.conf.d:/etc/nginx/user.conf.d:ro
+      - ./storage/docker/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - nginx
+    networks:
+      - default
+
   nginx:
     build:
       context: ./docker/nginx
