@@ -113,7 +113,7 @@ services:
     environment:
       - discovery.type=single-node
     ports:
-      - "9200:9200"
+      - "9200"
     volumes:
       - ./storage/docker/elasticsearch/:/usr/share/elasticsearch/data/
     networks:
