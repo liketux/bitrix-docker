@@ -100,6 +100,22 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306"
+    volumes:
+      - ./storage/docker/mysql/:/var/lib/mysql/
+    networks:
+      - bitrix
+
+  elasticsearch:
+    restart: unless-stopped
+    build:
+      context: ./docker/elasticsearch
+      dockerfile: es.docker
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - ./storage/docker/elasticsearch/:/usr/share/elasticsearch/data/
     networks:
       - bitrix
 
