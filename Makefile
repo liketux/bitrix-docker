@@ -22,6 +22,6 @@ composer:
 	docker-compose exec php-fpm-cli composer install
 
 perm:
-	sudo chgrp -R ${USER} www
-	sudo chown -R ${USER}:${USER} www
-	sudo chmod -R ug+rwx www
+	docker-compose exec php-fpm chgrp -R ${USER} www
+	docker-compose exec php-fpm chown -R ${USER}:${USER} www
+	docker-compose exec php-fpm chmod -R ug+rwx www

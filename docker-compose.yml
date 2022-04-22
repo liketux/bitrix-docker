@@ -35,8 +35,7 @@ services:
       - php-fpm
       - php-fpm-cli
     networks:
-      bitrix:
-        ipv4_address: ${NGINX_INTERFACE}
+      - bitrix
 
   memcached:
     restart: unless-stopped
