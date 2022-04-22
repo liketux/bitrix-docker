@@ -8,6 +8,7 @@ services:
       dockerfile: front.docker
     ports:
       - 443:443/tcp
+      - 80:80/tcp
     environment:
       CERTBOT_EMAIL: ${CERTBOT_EMAIL}
       ENVSUBST_VARS: FQDN
@@ -18,7 +19,7 @@ services:
     depends_on:
       - nginx
     networks:
-      - default
+      - bitrix
 
   nginx:
     build:
@@ -28,7 +29,7 @@ services:
       - ./www:/var/www/bitrix
       - ./storage/docker/logs/nginx/:/var/log/nginx/
     ports:
-      - 80:80/tcp
+      - "80"
     depends_on:
       - php-fpm
       - php-fpm-cli
