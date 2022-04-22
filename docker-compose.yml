@@ -22,6 +22,7 @@ services:
       - bitrix
 
   nginx:
+    restart: unless-stopped
     build:
       context: ./docker/nginx
       dockerfile: nginx.docker
