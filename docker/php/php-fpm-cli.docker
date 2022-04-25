@@ -10,6 +10,8 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
+RUN install-php-extensions sqlsrv pdo_sqlsrv
+
 ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
 ADD ./memcached.ini /usr/local/etc/php/conf.d/memcached.ini
 

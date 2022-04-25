@@ -5,6 +5,8 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions gd mysqli opcache pdo pdo_mysql memcached
 
+RUN install-php-extensions sqlsrv pdo_sqlsrv
+
 ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
 ADD ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ADD ./memcached.ini /usr/local/etc/php/conf.d/memcached.ini
